@@ -2,9 +2,12 @@
 
 return array(
 
-    'news/([0-9]+)' => 'news/view/$1',
+    'project/([0-9]+)' => 'project/view/$1',
 
-    'news' => 'news/index',
+    'category/([0-9]+)' => 'category/category/$1',
+    'category' => 'category/index',
+
+    '' => 'site/index',
     /*'products' => 'product/list',
     'news/archive' => 'news/archive',*/
 );
