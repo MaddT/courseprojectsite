@@ -9,6 +9,11 @@ return array(
     'category' => 'category/index',
 
     'user/register' => 'user/register',
+    'user/login' => 'user/login',
+    'user/logout' => 'user/logout',
+
+    'user/account' => 'account/index',
+    'account/edit' => 'account/edit',
 
     '' => 'site/index',
     /*'products' => 'product/list',

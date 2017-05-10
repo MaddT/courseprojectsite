@@ -2,27 +2,47 @@
 
 class User
 {
+    public static function edit($userID, $name, $password) {
+        $password = 'course' . strval($password);
+        $db = Db::GetConection();
+
+        $sql = 'UPDATE users ' .
+                'SET name=:name, ' .
+                'password = MD5(:password) ' .
+                'WHERE id=:id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':name', $name);
+        $result->bindParam(':password', $password);
+        $result->bindParam(':id', $userID);
+
+        return $result->execute();
+    }
+
+    public static function getUserByID($userID) {
+        if($userID) {
+            $db = Db::GetConection();
+            $sql = 'SELECT * FROM users WHERE id=:id';
+
+            $result = $db->prepare($sql);
+            $result->bindParam(':id', $userID);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->execute();
+
+            return $result->fetch();
+        }
+    }
+
     public static function register($name, $email, $password) {
         $password = 'course' . strval($password);
         $db = Db::GetConection();
 
-        /*$sql = 'INSERT INTO user (name, email, password, regdate, confirmed) ' .
-            'VALUES (:name, :email, MD5(:password), CURDATE(), 0)';*/
-/*        $sql = 'INSERT INTO users (name, email, password, regdate, confirmed) ' .
-            "VALUES ('" . $name . "', '" . $email . "', MD5('" . $password . "'), CURDATE(), 0)";*/
         $sql = 'INSERT INTO users (name, email, password, regdate, confirmed) ' .
-            "VALUES (:name, :email" . ", MD5(:password), CURDATE(), 0)";
+            "VALUES (:name, :email, MD5(:password), CURDATE(), 0)";
         $s = $db->prepare($sql);
         $s->bindValue(':name', $name);
         $s->bindValue(':email', $email);
         $s->bindValue(':password', $password);
-        //$s->execute();
-        //$result = $db->prepare($sql);
-        /*$result->bindParam(':name', $name, PDO::PARAM_STR);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $password);*/
-
-        echo 'Hello<br>';
 
         return $s->execute();
     }
@@ -61,5 +81,42 @@ class User
             return true;
         }
         return false;
+    }
+
+    public static function checkUserData($email, $password) {
+        $password = 'course' . strval($password);
+        $db = Db::GetConection();
+
+        $sql = 'SELECT * FROM users WHERE email = :email AND password = MD5(:password)';
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email);
+        $result->bindParam(':password', $password);
+        $result->execute();
+
+        $user = $result->fetch();
+        if($user) {
+            return $user['id'];
+        }
+
+        return false;
+    }
+
+    public static function auth($userID) {
+        $_SESSION['user'] = $userID;
+    }
+
+    public static function checkLogged() {
+        if(isset($_SESSION['user'])) {
+            return $_SESSION['user'];
+        }
+
+        header("Location: /user/login/");
+    }
+
+    public static function isGuest() {
+        if(isset($_SESSION['user'])) {
+            return false;
+        }
+        return true;
     }
 }

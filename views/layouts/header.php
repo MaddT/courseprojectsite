@@ -11,5 +11,10 @@
     <a href="/createproject/">Создать проект</a>
     <a href="/about/">О нас</a>
     <a href="/user/register/">Зарегистрироваться</a>
-    <a href="/login/">Войти</a>
+    <?php if(User::isGuest()): ?>
+        <a href="/user/login/">Войти</a>
+    <?php else: ?>
+        <a href="/user/account/">Аккаунт</a>
+        <a href="/user/logout/">Выйти</a>
+    <?php endif; ?>
 </div>
