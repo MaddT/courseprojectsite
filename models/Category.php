@@ -18,4 +18,13 @@ class Category
 
         return $categoryList;
     }
+
+    public static function getTotalProjectsInCategory($categoryID) {
+        $db = Db::GetConection();
+
+        $result = $db->query('SELECT count(id) AS count FROM projects WHERE categoryid="' . $categoryID . '"');
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $row = $result->fetch();
+        return $row['count'];
+    }
 }

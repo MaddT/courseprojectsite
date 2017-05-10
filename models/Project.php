@@ -27,15 +27,19 @@ class Project
         return $projectsList;
     }
 
-    public static function getProjectsListByCategory($categoryID = false) {
+    public static function getProjectsListByCategory($categoryID = false, $page = 1) {
         if($categoryID) {
+            $page = intval($page);
+            $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
             $db = Db::GetConection();
             $projects = array();
 
             $result = $db->query('SELECT id, title, description, financialpurpose FROM projects ' .
                 ' WHERE categoryid=' . $categoryID .
                 ' ORDER BY id DESC ' .
-                'LIMIT ' . self::SHOW_BY_DEFAULT);
+                'LIMIT ' . self::SHOW_BY_DEFAULT .
+                ' OFFSET ' . $offset);
 
             $i = 0;
             while($row = $result->fetch()) {
@@ -47,6 +51,19 @@ class Project
             }
 
             return $projects;
+        }
+    }
+
+    public static function getProjectByID($id) {
+        $id = intval($id);
+
+        if ($id) {
+            $db = Db::GetConection();
+
+            $result = $db->query('SELECT * FROM projects WHERE id=' . $id);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+
+            return $result->fetch();
         }
     }
 }

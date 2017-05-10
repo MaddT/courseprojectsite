@@ -18,4 +18,6 @@
     </div>
 <?php endforeach; ?>
 
+<?php echo $pagination->get(); ?>
+
 <?php include ROOT . '/views/layouts/footer.php'; ?>

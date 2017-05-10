@@ -1,8 +1,5 @@
 <?php
 
-include_once ROOT . '/models/Category.php';
-include_once ROOT . '/models/Project.php';
-
 class CategoryController
 {
     public  function actionIndex() {
@@ -17,12 +14,16 @@ class CategoryController
         return true;
     }
 
-    public static function actionCategory($categoryID) {
+    public static function actionCategory($categoryID, $page = 1) {
         $categories = array();
         $categories = Category::getCategoriesList();
 
         $categoryProjects = array();
-        $categoryProjects = Project::getProjectsListByCategory($categoryID);
+        $categoryProjects = Project::getProjectsListByCategory($categoryID, $page);
+
+        $total = Category::getTotalProjectsInCategory($categoryID);
+
+        $pagination = new Pagination($total, $page, Project::SHOW_BY_DEFAULT, 'page-');
 
         require_once(ROOT . '/views/category/category.php');
 

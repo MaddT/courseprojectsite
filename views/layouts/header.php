@@ -10,6 +10,6 @@
     <a href="/">Главная</a>
     <a href="/createproject/">Создать проект</a>
     <a href="/about/">О нас</a>
-    <a href="/registration/">Зарегистрироваться</a>
+    <a href="/user/register/">Зарегистрироваться</a>
     <a href="/login/">Войти</a>
 </div>
