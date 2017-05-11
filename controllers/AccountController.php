@@ -8,7 +8,7 @@ class AccountController
         $user = User::getUserByID($userID);
 
         $name = $user['name'];
-        $password = '';//$user['password'];
+        $password = '';
 
         $result = false;
 
@@ -28,6 +28,33 @@ class AccountController
 
             if($errors == false) {
                 $result = User::edit($userID, $name, $password);
+            }
+        }
+
+        if(isset($_POST['submitpass'])) {
+            $oldpassword = $_POST['oldpassword'];
+            $newpassword = $_POST['password'];
+            $passwordconf = $_POST['passwordconf'];
+
+            $errors = false;
+
+            if(!User::checkPass($oldpassword) || !User::checkPass($newpassword) || !User::checkPass($passwordconf)) {
+                $errors[] = 'Пароль не короче 6-ти символов.';
+            }
+
+            $userpass = $user['password'];
+            $oldpassword = 'course' . $oldpassword;
+            $oldpassword = md5($oldpassword);
+            if ($userpass != $oldpassword) {
+                $errors[] = 'Старый пароль не верен';
+            }
+
+            if($newpassword != $passwordconf) {
+                $errors[] = 'Пароль не подтвержден.';
+            }
+
+            if($errors == false) {
+                $result = User::changePassword($userID, $newpassword);
             }
         }
 

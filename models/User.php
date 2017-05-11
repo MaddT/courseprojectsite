@@ -2,6 +2,22 @@
 
 class User
 {
+    public static function changePassword($id, $password) {
+        $password = 'course' . strval($password);
+        $db = Db::GetConection();
+
+        $sql = 'UPDATE users ' .
+            'SET ' .
+            'password = MD5(:password) ' .
+            'WHERE id=:id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':password', $password);
+        $result->bindParam(':id', $id);
+
+        return $result->execute();
+    }
+
     public static function edit($userID, $name, $password) {
         $password = 'course' . strval($password);
         $db = Db::GetConection();

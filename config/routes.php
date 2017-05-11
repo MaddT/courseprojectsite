@@ -22,7 +22,7 @@ return array(
 
     'admin' => 'admin/index',
 
-
+    'about' => 'site/about',
     '' => 'site/index',
     /*'products' => 'product/list',
     'news/archive' => 'news/archive',*/

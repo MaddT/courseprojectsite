@@ -7,11 +7,16 @@ class SiteController
         $categories = Category::getCategoriesList();
 
         $latestProjects = array();
-        $latestProjects = Project::getLatestProjects(3);
+        $latestProjects = Project::getLatestProjects(6);
 
         require_once(ROOT . '/views/site/index.php');
 
         return true;
     }
 
+    public function actionAbout() {
+        require_once(ROOT . '/views/site/about.php');
+
+        return true;
+    }
 }
