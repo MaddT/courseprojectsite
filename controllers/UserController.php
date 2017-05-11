@@ -52,6 +52,7 @@ class UserController
             $name = $_POST['name'];
             $password = $_POST['password'];
             $email = $_POST['email'];
+            $passconf = $_POST['passwordconf'];
 
             $errors = false;
 
@@ -69,6 +70,10 @@ class UserController
 
             if(User::checkEmailExists($email)) {
                 $errors[] = 'Такой email уже используется.';
+            }
+
+            if ($password != $passconf) {
+                $errors[] = 'Пароль не подтвержден.';
             }
 
             if($errors == false) {

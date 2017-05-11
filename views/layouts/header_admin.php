@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Администрирование сайта</title>
+    <link href="/template/css/style.css" rel="stylesheet">
     <link href="/template/css/bootstrap.min.css" rel="stylesheet" />
     <script src="/template/js/jquery-3.2.1.min.js"></script>
     <script src="/template/js/bootstrap.min.js"></script>

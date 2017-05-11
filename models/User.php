@@ -137,4 +137,10 @@ class User
 
         return $userList;
     }
+
+    public static function userLogin($email, $password) {
+        $userId = User::checkUserData($email, $password);
+        User::auth($userId);
+        header("Location: /user/account/");
+    }
 }

@@ -12,7 +12,7 @@
                 </ol>
             </div>
 
-            <form action="#" method="post" enctype="multipart/form-data" class="default-form">
+            <form action="#" method="post" class="default-form">
                 <div class="form-group">
                     <h4 class="form-control-static">Вы действительно хотите удалить этот проект? (<?php echo $id; ?>)</h4>
                 </div>

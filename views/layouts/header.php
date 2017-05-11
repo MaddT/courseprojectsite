@@ -7,6 +7,14 @@
     <link href="/template/css/bootstrap.min.css" rel="stylesheet" />
     <script src="/template/js/jquery-3.2.1.min.js"></script>
     <script src="/template/js/bootstrap.min.js"></script>
+    <style>
+        .default-form {
+            width: 500px;
+            margin: 30px auto;
+            border: 1px solid grey;
+            padding: 15px;
+        }
+    </style>
 </head>
 <body>
 
