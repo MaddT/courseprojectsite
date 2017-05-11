@@ -23,10 +23,13 @@ class AdminProjectController extends AdminBase
         return true;
     }
 
+    //todo
     public function actionCreate() {
         self::checkAdmin();
 
         $categoriesList = Category::getCategoriesList();
+        $countryList = Database::getCountries();
+        $userList = User::getUsers();
 
         if(isset($_POST['submit'])) {
             $options['title'] = $_POST['title'];
@@ -34,6 +37,9 @@ class AdminProjectController extends AdminBase
             $options['category_id'] = $_POST['category_id'];
             $options['financialpurpose'] = $_POST['financialpurpose'];
             $options['details'] = $_POST['details'];
+            $options['userid'] = $_POST['userid'];
+            $options['country'] = $_POST['country'];
+            $options['finaldate'] = $_POST['finaldate'];
 
             $errors = false;
 
@@ -62,6 +68,8 @@ class AdminProjectController extends AdminBase
         self::checkAdmin();
 
         $categoriesList = Category::getCategoriesList();
+        $countryList = Database::getCountries();
+        $userList = User::getUsers();
 
         $project = Project::getProjectByID($id);
 
@@ -71,6 +79,9 @@ class AdminProjectController extends AdminBase
             $options['category_id'] = $_POST['category_id'];
             $options['financialpurpose'] = $_POST['financialpurpose'];
             $options['details'] = $_POST['details'];
+            $options['userid'] = $_POST['userid'];
+            $options['country'] = $_POST['country'];
+            $options['finaldate'] = $_POST['finaldate'];
 
             if(Project::updateProjectById($id, $options)){
                 if(is_uploaded_file($_FILES['image']['tmp_name'])) {

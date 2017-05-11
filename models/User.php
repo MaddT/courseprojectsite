@@ -119,4 +119,22 @@ class User
         }
         return true;
     }
+
+    public static function getUsers() {
+        $db = DB::GetConection();
+
+        $userList = array();
+
+        $result = $db->query('SELECT id, name, email FROM users');
+
+        $i = 0;
+        while($row = $result->fetch()) {
+            $userList[$i]['id'] = $row['id'];
+            $userList[$i]['name'] = $row['name'];
+            $userList[$i]['email'] = $row['email'];
+            $i++;
+        }
+
+        return $userList;
+    }
 }

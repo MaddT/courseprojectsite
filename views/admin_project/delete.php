@@ -1,10 +1,27 @@
 <?php include ROOT . '/views/layouts/header_admin.php'; ?>
 
-<h4>Удалить проект <?php echo $id; ?></h4>
-<p>Вы действительно хотите удалить этот проект?</p>
+<section>
+    <div class="container">
+        <div class="row">
 
-<form method="post">
-    <input type="submit" name="submit" value="Удалить">
-</form>
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/">Админпанель</a></li>
+                    <li><a href="/admin/project/">Управление проектами</a></li>
+                    <li class="active">Удалить проект</li>
+                </ol>
+            </div>
 
+            <form action="#" method="post" enctype="multipart/form-data" class="default-form">
+                <div class="form-group">
+                    <h4 class="form-control-static">Вы действительно хотите удалить этот проект? (<?php echo $id; ?>)</h4>
+                </div>
+
+                <input type="submit" name="submit" value="Удалить" class="btn-lg btn-danger center-block">
+
+            </form>
+
+        </div>
+    </div>
+</section>
 <?php include ROOT . '/views/layouts/footer_admin.php'; ?>

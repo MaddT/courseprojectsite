@@ -1,9 +1,17 @@
 <?php include ROOT . '/views/layouts/header_admin.php'; ?>
 
-<p>Hello Admin!!!</p>
+<section>
+    <div class="container">
+        <div class="row">
 
-<a href="/admin/project/">Управление проектами</a><br>
-<a href="/admin/category/">Управление категориями</a><br>
-<a href="/admin/user/">Управление пользователями</a>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="/admin/project/">Управление проектами</a></li>
+                <li><a href="/admin/category/">Управление категориями</a></li>
+                <li><a href="/admin/user/">Управление пользователями</a></li>
+            </ul>
+
+        </div>
+    </div>
+</section>
 
 <?php include ROOT . '/views/layouts/footer_admin.php'; ?>
