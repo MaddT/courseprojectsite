@@ -66,4 +66,88 @@ class Project
             return $result->fetch();
         }
     }
+
+    public static function getProjectsList() {
+        $db = Db::GetConection();
+
+        $result = $db->query('SELECT * FROM projects ORDER BY id ASC');
+        $projectList = array();
+        $i = 0;
+        while($row = $result->fetch()) {
+            $projectList[$i]['id'] = $row['id'];
+            $projectList[$i]['title'] = $row['title'];
+            $projectList[$i]['description'] = $row['description'];
+            $projectList[$i]['finaldate'] = $row['finaldate'];
+            $i++;
+        }
+        return $projectList;
+    }
+
+    public static function deleteProjectById($id) {
+        $db = Db::GetConection();
+
+        $sql = 'DELETE FROM projects WHERE id=:id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id);
+        return $result->execute();
+    }
+
+    public static function createProject($options) {
+        $db = Db::GetConection();
+
+        $sql = 'INSERT INTO projects ' .
+            '(title, userid, description, categoryid, financialpurpose, financialcurrent, startdate, finaldate) ' .
+            'VALUES ' .
+            '(:title, 1, :desription, :categoryid, :financialpurpose, 0, CURDATE(), :date)';
+
+        $date = '2019-02-02';
+        $result = $db->prepare($sql);
+        $result->bindParam(':title', $options['title']);
+        $result->bindParam(':desription', $options['description']);
+        $result->bindParam(':categoryid', $options['category_id']);
+        $result->bindParam(':financialpurpose', $options['financialpurpose']);
+        $result->bindParam(':date', $date);
+
+        if($result->execute()) {
+            return $db->lastInsertId();
+        }
+
+        return 0;
+    }
+
+    public static function updateProjectById($id, $options) {
+        $db = Db::GetConection();
+
+        $sql = 'UPDATE projects SET
+            title=:title,
+            description=:description,
+            categoryid=:categoryid,
+            financialpurpose=:financialpurpose
+            WHERE id=:id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':title', $options['title']);
+        $result->bindParam(':description', $options['description']);
+        $result->bindParam(':categoryid', $options['category_id']);
+        $result->bindParam(':financialpurpose', $options['financialpurpose'], PDO::PARAM_INT);
+        $result->bindParam(':id', $id);
+
+
+        return $result->execute();
+    }
+
+    public static function getImage($id) {
+        $noImage = 'noimage.jpg';
+
+        $path = '/upload/images/projects/';
+
+        $pathToImage = $path . $id . '.jpg';
+
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $pathToImage)) {
+            return $pathToImage;
+        }
+
+        return $path . $noImage;
+    }
 }
